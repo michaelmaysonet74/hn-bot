@@ -1,0 +1,24 @@
+{
+  "name": "raspberry-piscord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelmaysonet74/raspberry-piscord.git"
+  },
+  "author": "Michael Maysonet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaelmaysonet74/raspberry-piscord/issues"
+  },
+  "homepage": "https://github.com/michaelmaysonet74/raspberry-piscord#readme",
+  "dependencies": {
+    "cylon": "^1.3.0",
+    "cylon-raspi": "^0.20.1",
+    "discord.js": "^12.5.1"
+  }
+}
