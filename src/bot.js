@@ -8,11 +8,11 @@ client.on("ready", () => {
 });
 
 client.on("message", (msg) => {
-    const { author, content, reply } = msg;
+    const { author, content } = msg;
 
     if (content.match(/ping/gi)) {
         console.log(author);
-        reply("pong...beep boop! 🤖");
+        msg.reply("pong...beep boop! 🤖");
     }
 });
 
