@@ -1,18 +1,20 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const botMsg = "beep boop! 🤖";
 
 require("dotenv").config();
 
 client.on("ready", () => {
-    console.log("beep boop! 🤖");
+    console.log(botMsg);
 });
 
 client.on("message", (msg) => {
     const { author, content } = msg;
+    const commands = content.split(/\<.*\>/).slice(1);
 
-    if (content.match(/ping/gi)) {
+    if (commands.join(", ").toLowerCase().match(/ping$/)) {
         console.log(author);
-        msg.reply("pong...beep boop! 🤖");
+        msg.reply(`pong...${botMsg}`);
     }
 });
 
