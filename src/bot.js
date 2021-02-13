@@ -1,21 +1,17 @@
+const CommandHandlers = require("./command-handlers");
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const botMsg = "beep boop! 🤖";
-
-require("dotenv").config();
-
-client.on("ready", () => {
-    console.log(botMsg);
-});
 
 client.on("message", (msg) => {
-    const { author, content } = msg;
-    const commands = content.split(/\<.*\>/).slice(1);
-
-    if (commands.join(", ").toLowerCase().match(/ping$/)) {
-        console.log(author);
-        msg.reply(`pong...${botMsg}`);
+    const { content } = msg;
+    const [command, ...args] = content.split(/\<.*\>/).slice(1);
+    try {
+        CommandHandlers[command?.trim()?.toLowerCase()](msg);
+    }
+    catch (err) {
+        console.error(err);
     }
 });
 
+require("dotenv").config();
 client.login(process.env.DISCORD_TOKEN);
