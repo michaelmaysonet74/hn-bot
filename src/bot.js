@@ -4,14 +4,12 @@ require("dotenv").config();
 
 const client = new Discord.Client();
 
-client.on("message", async (msg) => {
+client.on("message", (msg) => {
     if (msg.author.id === process.env.BOT_ID) return;
-
-    const { content } = msg;
-    const [command] = content.split(/\<.*\>/).slice(1);
-
     try {
-        await CommandHandlers[command?.trim()?.toLowerCase()](msg);
+        const { content } = msg;
+        const [command] = content.split(/\<.*\>/).slice(1);
+        CommandHandlers[command?.trim()?.toLowerCase()](msg)
     }
     catch (err) {
         console.error(err);

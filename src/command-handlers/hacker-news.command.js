@@ -2,13 +2,18 @@ const HackerNewsAPI = require("../api/hacker-news.api");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-    "!hacker-news": async (msg) => {
+    "!hn": async (msg) => {
+        console.log("Command: !hn");
         const topNews = await HackerNewsAPI.getTopNews();
-        topNews
+        const description = topNews
             .filter(({ title, url }) => title && url)
-            .map(({ title, url }) =>
-                new MessageEmbed().setTitle(title).setURL(url)
-            )
-            .forEach((embed) => msg.channel.send(embed));
+            .reduce(
+                (acc, { title, url }) => acc + `${title}\n${url}\n\n`,
+                ""
+            );
+        msg.reply(new MessageEmbed({
+            title: "Top Stories",
+            description,
+        }));
     },
 };
