@@ -1,17 +1,22 @@
 const CommandHandlers = require("./command-handlers");
 const Discord = require("discord.js");
+require("dotenv").config();
+
 const client = new Discord.Client();
 
-client.on("message", (msg) => {
+client.on("message", async (msg) => {
+    if (msg.author.id === process.env.BOT_ID) return;
+
     const { content } = msg;
-    const [command, ...args] = content.split(/\<.*\>/).slice(1);
+    const [command] = content.split(/\<.*\>/).slice(1);
+
     try {
-        CommandHandlers[command?.trim()?.toLowerCase()](msg);
+        await CommandHandlers[command?.trim()?.toLowerCase()](msg);
     }
     catch (err) {
         console.error(err);
+        msg.reply("Oops! Something went wrong 💔");
     }
 });
 
-require("dotenv").config();
 client.login(process.env.DISCORD_TOKEN);
