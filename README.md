@@ -21,4 +21,4 @@ Get top 10 recent Hacker News stories.
 
 | Flags | Argument | Description                                | 
 | ----- | -------- | ------------------------------------------ |
-| -t    |   *none  | Get Hacker News Top Stories (Default).     |
+| -t    |   -      | Get Hacker News Top Stories (Default).     |
