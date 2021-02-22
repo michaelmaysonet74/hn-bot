@@ -20,17 +20,17 @@ const getNews = async (cursor, limit, category) => {
     );
 };
 
-const getTopNews = async (
+const getTopNews = (
     cursor = 0,
     limit = 10
 ) => getNews(cursor, limit, "topstories");
 
-const getBestStories = async (
+const getBestStories = (
     cursor = 0,
     limit = 10
 ) => getNews(cursor, limit, "beststories");
 
-const getNewStories = async (
+const getNewStories = (
     cursor = 0,
     limit = 10
 ) => getNews(cursor, limit, "newstories");
