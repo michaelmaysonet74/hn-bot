@@ -6,22 +6,37 @@ const apiVersion = "v0";
 const getItem = async (id) =>
     axios.get(`${baseURL}/${apiVersion}/item/${id}.json?print=pretty`);
 
-const getTopNews = async (cursor = 0, limit = 5) => {
+const getNews = async (cursor, limit, category) => {
     const { data: topNewsIds } = await axios.get(
-        `${baseURL}/${apiVersion}/topstories.json?print=pretty`
+        `${baseURL}/${apiVersion}/${category}.json?print=pretty`
     );
-
     const topNews = await Promise.all(
         topNewsIds
             ?.slice(cursor, cursor + limit)
             ?.map((id) => getItem(id))
     );
-
     return topNews.map(
         ({ data: { title, url } }) => ({ title, url })
     );
 };
 
+const getTopNews = async (
+    cursor = 0,
+    limit = 10
+) => getNews(cursor, limit, "topstories");
+
+const getBestStories = async (
+    cursor = 0,
+    limit = 10
+) => getNews(cursor, limit, "beststories");
+
+const getNewStories = async (
+    cursor = 0,
+    limit = 10
+) => getNews(cursor, limit, "newstories");
+
 module.exports = {
     getTopNews,
+    getBestStories,
+    getNewStories,
 };

@@ -1,15 +1,21 @@
 const CommandHandlers = require("./command-handlers");
-const Discord = require("discord.js");
-require("dotenv").config();
+const { extractCommandAndFlags, processFlags } = require("./helpers");
 
+const { config } = require("dotenv");
+config();
+
+const Discord = require("discord.js");
 const client = new Discord.Client();
 
 client.on("message", (msg) => {
     if (msg.author.id === process.env.BOT_ID) return;
+
     try {
         const { content } = msg;
-        const [command] = content.split(/\<.*\>/).slice(1);
-        CommandHandlers[command?.trim()?.toLowerCase()](msg)
+        const { command, flags } = extractCommandAndFlags(content);
+        const processedFlags = processFlags(flags);
+
+        CommandHandlers[command?.toLowerCase()](msg, processedFlags)
     }
     catch (err) {
         console.error(err);

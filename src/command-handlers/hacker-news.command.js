@@ -4,16 +4,18 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     "!hn": async (msg) => {
         console.log("Command: !hn");
+
         const topNews = await HackerNewsAPI.getTopNews();
-        const description = topNews
+        const fields = topNews
             .filter(({ title, url }) => title && url)
-            .reduce(
-                (acc, { title, url }) => acc + `${title}\n${url}\n\n`,
-                ""
-            );
+            .map(({ title, url }) => ({
+                name: title,
+                value: `${url}`,
+            }));
+
         msg.reply(new MessageEmbed({
-            title: "Top Stories",
-            description,
+            title: "✨ Top Stories",
+            fields,
         }));
     },
 };
