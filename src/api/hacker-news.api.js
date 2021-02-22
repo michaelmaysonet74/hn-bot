@@ -11,15 +11,15 @@ const getNews = async (
     limit = 10,
     category
 ) => {
-    const { data: topNewsIds } = await axios.get(
+    const { data: newsIds } = await axios.get(
         `${baseURL}/${apiVersion}/${category}.json?print=pretty`
     );
-    const topNews = await Promise.all(
-        topNewsIds
+    const news = await Promise.all(
+        newsIds
             ?.slice(cursor, cursor + limit)
             ?.map((id) => getItem(id))
     );
-    return topNews.map(
+    return news.map(
         ({ data: { title, url } }) => ({ title, url })
     );
 };
