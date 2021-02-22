@@ -11,7 +11,7 @@ TODO
 
 Shows available commands.
 
-| Flags | Argument         | Description                                | 
+| Flag | Argument         | Description                                | 
 | ----- | --------         | ------------------------------------------ |
 | -c    | \<Command Name\> | Show more details about specified command. |
 
@@ -19,6 +19,6 @@ Shows available commands.
 
 Get top 10 recent Hacker News stories.
 
-| Flags | Argument | Description                                | 
+| Flag | Argument | Description                                | 
 | ----- | -------- | ------------------------------------------ |
 | -t    |   -      | Get Hacker News Top Stories (Default).     |
