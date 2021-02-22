@@ -9,12 +9,10 @@ const client = new Discord.Client();
 
 client.on("message", (msg) => {
     if (msg.author.id === process.env.BOT_ID) return;
-
     try {
         const { content } = msg;
         const { command, flags } = extractCommandAndFlags(content);
         const processedFlags = processFlags(flags);
-
         CommandHandlers[command?.toLowerCase()](msg, processedFlags)
     }
     catch (err) {
