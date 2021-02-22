@@ -6,7 +6,11 @@ const apiVersion = "v0";
 const getItem = async (id) =>
     axios.get(`${baseURL}/${apiVersion}/item/${id}.json?print=pretty`);
 
-const getNews = async (cursor, limit, category) => {
+const getNews = async (
+    cursor = 0,
+    limit = 10,
+    category
+) => {
     const { data: topNewsIds } = await axios.get(
         `${baseURL}/${apiVersion}/${category}.json?print=pretty`
     );
@@ -20,23 +24,8 @@ const getNews = async (cursor, limit, category) => {
     );
 };
 
-const getTopNews = (
-    cursor = 0,
-    limit = 10
-) => getNews(cursor, limit, "topstories");
-
-const getBestStories = (
-    cursor = 0,
-    limit = 10
-) => getNews(cursor, limit, "beststories");
-
-const getNewStories = (
-    cursor = 0,
-    limit = 10
-) => getNews(cursor, limit, "newstories");
-
 module.exports = {
-    getTopNews,
-    getBestStories,
-    getNewStories,
+    getTopNews: (cursor, limit) => getNews(cursor, limit, "topstories"),
+    getBestStories: (cursor, limit) => getNews(cursor, limit, "beststories"),
+    getNewStories: (cursor, limit) => getNews(cursor, limit, "newstories"),
 };
