@@ -1,5 +1,8 @@
+const { getArgByFlag } = require("../helpers");
 const fs = require("fs/promises");
 const { MessageEmbed } = require("discord.js");
+
+const getCommandArg = (flags) => getArgByFlag(flags, "c");
 
 const getAvailableCommands = async () => {
     const data = await fs.readFile(`${__dirname}/../../available-commands.json`, "utf-8");
@@ -11,7 +14,7 @@ module.exports = {
         console.log("Command: !help");
 
         const availableCommands = await getAvailableCommands();
-        const commandArg = flags.find(({ flag }) => flag === "c")?.arg;
+        const commandArg = getCommandArg(flags);
         const fields = !commandArg
             ? availableCommands
                 .map(({ Command, Description }) => ({
