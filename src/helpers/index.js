@@ -12,7 +12,7 @@ const processFlags = (str = "") => {
     return str
         .split("-")
         .filter(_ => _)
-        .map(_ => _.trim().split(" ").filter(_ => _))
+        .map(_ => _.trim().split(/ +/).filter(_ => _))
         .map(([flag, arg]) => ({ flag, arg }));
 };
 
