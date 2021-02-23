@@ -23,4 +23,4 @@ Get top 10 recent Hacker News stories.
 | ----- | --------           | ------------------------------------------ |
 | -t    |   -                | Get Hacker News Top Stories (Default).     |
 | -i    | \<Numerical Index> | TODO     |
-| -t    | \<Filter>          | TODO     |
+| -f    | \<Filter>          | TODO     |
