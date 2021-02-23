@@ -1,30 +1,30 @@
 [
-    {
-        "Command": "!help",
-        "Flags": [
-            {
-                "Usage": "-c <Command Name>",
-                "Description": "Show more details about specified command."
-            }
-        ],
-        "Description": "Shows available commands."
-    },
-    {
-        "Command": "!hn",
-        "Flags": [
-            {
-                "Usage": "-t",
-                "Description": "Get Hacker News Top Stories (Default)."
-            },
-            {
-                "Usage": "-i <Numerical Index>",
-                "Description": "TBD"
-            },
-            {
-                "Usage": "-f <Filter>",
-                "Description": "TBD"
-            }
-        ],
-        "Description": "Get top 10 recent Hacker News stories."
-    }
+  {
+    "Command": "!help",
+    "Flags": [
+      {
+        "Usage": "-c <Command Name>",
+        "Description": "Show more details about specified command."
+      }
+    ],
+    "Description": "Shows available commands."
+  },
+  {
+    "Command": "!hn",
+    "Flags": [
+      {
+        "Usage": "-t",
+        "Description": "Get Hacker News Top Stories (Default)."
+      },
+      {
+        "Usage": "-i <Numerical Index>",
+        "Description": "TBD"
+      },
+      {
+        "Usage": "-f <Filter>",
+        "Description": "TBD"
+      }
+    ],
+    "Description": "Get top 10 recent Hacker News stories."
+  }
 ]
