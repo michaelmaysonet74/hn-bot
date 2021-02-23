@@ -13,7 +13,7 @@ client.on("message", (msg) => {
         const { content } = msg;
         const { command, flags } = extractCommandAndFlags(content);
         const processedFlags = processFlags(flags);
-        CommandHandlers[command?.toLowerCase()](msg, processedFlags)
+        CommandHandlers[command?.toLowerCase()](msg, processedFlags);
     }
     catch (err) {
         console.error(err);
