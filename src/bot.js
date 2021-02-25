@@ -13,7 +13,7 @@ client.on("message", (msg) => {
 	  msg.author.id === process.env.BOT_ID
   ) {
 	  return;
-}
+	}
 
   try {
     const { content } = msg;
