@@ -9,7 +9,6 @@ const client = new Discord.Client();
 
 client.on("message", (msg) => {
   if (!process.env.BOT_ID || msg.author.id === process.env.BOT_ID) return;
-
   try {
     const { content } = msg;
     const { command, flags } = extractCommandAndFlags(content);
