@@ -37,7 +37,7 @@ module.exports = {
       );
     } else {
       msg.reply(
-        `Oops! Couldn't find any stories with a title that would match with "${filterArg}". 😭`
+        `Bummer! Couldn't find any stories with a title that would match with "${filterArg}". 😭`
       );
     }
   },
