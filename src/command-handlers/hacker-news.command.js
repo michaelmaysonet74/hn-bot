@@ -13,14 +13,11 @@ module.exports = {
     const filterArg = getFilterArg(flags);
 
     const topNews = await HackerNewsAPI.getTopNews(
-      typeof indexArg === "number" && !isNaN(indexArg) ? indexArg : undefined
+                                                typeof indexArg === "number" && !isNaN(indexArg) ? indexArg : undefined
     );
 
     const filteredNews = filterArg
-      ? topNews.filter(
-          ({ title, url }) =>
-            title && url && title.match(new RegExp(filterArg, "gi"))
-        )
+      ? topNews.filter(({ title, url }) => title && url && title.match(new RegExp(filterArg, "gi")))
       : topNews.filter(({ title, url }) => title && url);
 
     if (filteredNews.length) {
