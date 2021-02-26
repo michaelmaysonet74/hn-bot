@@ -31,7 +31,7 @@ module.exports = {
     if (filteredNews.length) {
       const fields = filteredNews.map(({ title, url }) => ({
         name: title,
-        value: `${url}`,
+        value: url,
       }));
 
       msg.reply(
