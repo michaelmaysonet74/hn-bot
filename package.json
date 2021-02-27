@@ -5,7 +5,7 @@
   "main": "bot.js",
   "scripts": {
     "start": "node ./src/bot.js",
-    "dev": "nodemon ./src/bot.js",
+    "dev": "export NODE_ENV=dev; nodemon ./src/bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

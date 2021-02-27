@@ -14,8 +14,6 @@ const getAvailableCommands = async () => {
 
 module.exports = {
   "!help": async (msg, flags = []) => {
-    console.log("Command: !help");
-
     const availableCommands = await getAvailableCommands();
     const commandArg = getCommandArg(flags);
     const fields = !commandArg

@@ -13,6 +13,14 @@ client.on("message", (msg) => {
     const { content } = msg;
     const { command, flags } = extractCommandAndFlags(content);
     const processedFlags = processFlags(flags);
+
+    if (process.env.NODE_ENV === "dev") {
+      console.log(`Command: ${command}`);
+      console.log(
+        processedFlags ? `Flags: ${JSON.stringify(processedFlags)}` : ""
+      );
+    }
+
     CommandHandlers[command?.toLowerCase()](msg, processedFlags);
   } catch (err) {
     console.error(err);

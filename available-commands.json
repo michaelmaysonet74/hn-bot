@@ -14,7 +14,15 @@
     "Flags": [
       {
         "Usage": "-t",
-        "Description": "Get Hacker News Top Stories (Default)."
+        "Description": "Get HackerNews Top Stories (Default)."
+      },
+      {
+        "Usage": "-b",
+        "Description": "Get HackerNews Best Stories."
+      },
+      {
+        "Usage": "-n",
+        "Description": "Get HackerNews New Stories."
       },
       {
         "Usage": "-i <Numerical Index>",
@@ -25,6 +33,6 @@
         "Description": "TBD"
       }
     ],
-    "Description": "Get top 10 recent Hacker News stories."
+    "Description": "Get top 10 recent HackerNews stories."
   }
 ]
