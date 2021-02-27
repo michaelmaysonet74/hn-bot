@@ -18,8 +18,10 @@ Shows available commands.
 
 Get top 10 recent Hacker News stories.
 
-| Flag  | Argument           | Description                                | 
-| ----- | --------           | ------------------------------------------ |
-| -t    |   -                | Get Hacker News Top Stories (Default).     |
-| -i    | \<Numerical Index> | TODO     |
-| -f    | \<Filter>          | TODO     |
+| Flag | Argument           | Description                           |
+| ---- | ------------------ | ------------------------------------- |
+| -t   | -                  | Get HackerNews Top Stories (Default). |
+| -b   | -                  | Get HackerNews Best Stories.          |
+| -n   | -                  | Get HackerNews NewStories.            |
+| -i   | \<Numerical Index> | TODO                                  |
+| -f   | \<Filter>          | TODO                                  |
