@@ -9,7 +9,7 @@ const getFilterArg = (flags) => getArgByFlag(flags, "f");
 const getCategory = (flags) =>
   flags.map(({ flag }) => flag).find((_) => _.match(/t|b|n/)) ?? "t";
 
-const getResolverByCategory = (category) => {
+const getResolverByCategory = (category = "t") => {
   return {
     t: {
       handlerTitle: "🥇 Top Stories",
