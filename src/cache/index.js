@@ -13,6 +13,10 @@ const writeCache = (data) =>
 
 const CacheStore = {
   store: {},
+  clearCacheByKey(key) {
+    this.store[key] = undefined;
+    writeCache(this.store);
+  },
   setCacheByKey(key, item) {
     if (process.env.NODE_ENV === "dev") return;
     this.store[key] ??= {};
@@ -29,10 +33,6 @@ const CacheStore = {
       return;
     }
     return value;
-  },
-  clearCacheByKey(key) {
-    this.store[key] = undefined;
-    writeCache(this.store);
   },
 };
 
