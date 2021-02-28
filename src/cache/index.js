@@ -23,12 +23,12 @@ const CacheStore = {
   async getCacheByKey(key) {
     if (process.env.NODE_ENV === "dev") return;
     const cache = await readCache();
-    const { createdAt = 0 } = cache?.[key] ?? {};
+    const { createdAt = 0, value } = cache?.[key] ?? {};
     if (createdAt + EXPIRATION_TIME < Date.now()) {
       this.clearCacheByKey(key);
       return;
     }
-    return cache?.[key]?.value;
+    return value;
   },
   clearCacheByKey(key) {
     this.store[key] = undefined;
