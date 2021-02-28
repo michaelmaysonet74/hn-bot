@@ -20,8 +20,12 @@ const processFlags = (str = "") => {
 const getArgByFlag = (flags, selector) =>
   flags.find(({ flag }) => flag === selector)?.arg;
 
+const sanitizeNumber = (num) =>
+  typeof num === "number" && !isNaN(num) ? num : 0;
+
 module.exports = {
   extractCommandAndFlags,
   processFlags,
   getArgByFlag,
+  sanitizeNumber,
 };

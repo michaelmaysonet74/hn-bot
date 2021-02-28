@@ -1,4 +1,5 @@
 const axios = require("axios");
+const CacheStore = require("../cache");
 
 const baseURL = "https://hacker-news.firebaseio.com";
 const apiVersion = "v0";
@@ -6,10 +7,24 @@ const apiVersion = "v0";
 const getItem = async (id) =>
   axios.get(`${baseURL}/${apiVersion}/item/${id}.json?print=pretty`);
 
-const getStories = async (cursor = 0, limit = 10, category) => {
-  const { data: storiesIds } = await axios.get(
+const getStoriesIds = async (category) => {
+  const cacheKey = `${category.toUpperCase()}_IDS`;
+  const cacheStoriesIds = await CacheStore.getCacheByKey(cacheKey);
+
+  if (cacheStoriesIds?.length > 0) {
+    return cacheStoriesIds;
+  }
+
+  const { data } = await axios.get(
     `${baseURL}/${apiVersion}/${category}.json?print=pretty`
   );
+
+  CacheStore.setCacheByKey(cacheKey, data);
+  return data;
+};
+
+const getStories = async (cursor = 0, limit = 10, category) => {
+  const storiesIds = await getStoriesIds(category);
 
   const index =
     Math.abs(cursor) > storiesIds.length

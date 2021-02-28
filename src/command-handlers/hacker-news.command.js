@@ -1,5 +1,5 @@
 const HackerNewsAPI = require("../api/hacker-news.api");
-const { getArgByFlag } = require("../helpers");
+const { getArgByFlag, sanitizeNumber } = require("../helpers");
 const { MessageEmbed } = require("discord.js");
 
 const getIndexArg = (flags) => getArgByFlag(flags, "i") * 1;
@@ -12,15 +12,18 @@ const getCategory = (flags) =>
 const getResolverByCategory = (category = "t") => {
   return {
     t: {
-      handlerTitle: "🥇 Top Stories",
+      icon: "🥇",
+      title: "Top Stories",
       resolver: HackerNewsAPI.getTopStories,
     },
     b: {
-      handlerTitle: "👌🏻 Best Stories",
+      icon: "👌🏻",
+      title: "Best Stories",
       resolver: HackerNewsAPI.getBestStories,
     },
     n: {
-      handlerTitle: "✨ New Stories",
+      icon: "✨",
+      title: "New Stories",
       resolver: HackerNewsAPI.getNewStories,
     },
   }[category];
@@ -28,14 +31,12 @@ const getResolverByCategory = (category = "t") => {
 
 module.exports = {
   "!hn": async (msg, flags = []) => {
-    const indexArg = getIndexArg(flags);
+    const indexArg = sanitizeNumber(getIndexArg(flags));
     const filterArg = getFilterArg(flags);
     const category = getCategory(flags);
-    const { handlerTitle, resolver } = getResolverByCategory(category);
 
-    const stories = await resolver(
-      typeof indexArg === "number" && !isNaN(indexArg) ? indexArg : undefined
-    );
+    const { icon, title, resolver } = getResolverByCategory(category);
+    const stories = await resolver(indexArg);
 
     const filteredStories = filterArg
       ? stories.filter(
@@ -52,13 +53,16 @@ module.exports = {
 
       msg.reply(
         new MessageEmbed({
-          title: handlerTitle,
+          footer: {
+            text: `Next 10 ${title}: !hn -${category} -i ${indexArg + 10}`,
+          },
+          title: `${icon} ${title}`,
           fields,
         })
       );
     } else {
       msg.reply(
-        `Bummer! Couldn't find any stories with a title that would match with "${filterArg}". 😭`
+        `Bummer! Couldn't find any stories with a title that matches "${filterArg}". 😭`
       );
     }
   },
