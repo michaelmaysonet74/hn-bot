@@ -31,9 +31,11 @@ const getResolverByCategory = (category = "t") => {
 
 module.exports = {
   "!hn": async (msg, flags = []) => {
-    const indexArg = sanitizeNumber(getIndexArg(flags));
-    const filterArg = getFilterArg(flags);
-    const category = getCategory(flags);
+    const [indexArg, filterArg, category] = [
+      sanitizeNumber(getIndexArg(flags)),
+      getFilterArg(flags),
+      getCategory(flags),
+    ];
 
     const { icon, title, resolver } = getResolverByCategory(category);
     const stories = await resolver(indexArg);
