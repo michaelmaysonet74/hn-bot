@@ -26,11 +26,11 @@
       },
       {
         "Usage": "-i <Numerical Index>",
-        "Description": "TBD"
+        "Description": "Starting point to fetch next 10 HackerNews Stories."
       },
       {
         "Usage": "-f <Filter>",
-        "Description": "TBD"
+        "Description": "Filter HackerNews Stories titles by provider text."
       }
     ],
     "Description": "Get top 10 recent HackerNews stories."

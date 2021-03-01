@@ -19,7 +19,7 @@ const getStoriesIds = async (category) => {
     `${baseURL}/${apiVersion}/${category}.json?print=pretty`
   );
 
-  CacheStore.setCacheByKey(cacheKey, data);
+  CacheStore.setCacheByKey(cacheKey, data, 300_000);
   return data;
 };
 

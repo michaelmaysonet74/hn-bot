@@ -13,25 +13,44 @@ const writeCache = (data) =>
 
 const CacheStore = {
   store: {},
+  /**
+   *
+   * @param {string} key
+   */
   clearCacheByKey(key) {
     this.store[key] = undefined;
     writeCache(this.store);
   },
-  setCacheByKey(key, item) {
+  /**
+   *
+   * @param {string} key
+   * @param {object} data
+   * @param {number} expTime
+   */
+  setCacheByKey(key, data, expTime = EXPIRATION_TIME) {
     if (process.env.NODE_ENV === "dev") return;
-    this.store[key] ??= {};
-    this.store[key].value = item;
-    this.store[key].createdAt = Date.now();
+    this.store[key] ??= {
+      value: data,
+      createdAt: Date.now(),
+      expTime,
+    };
     writeCache(this.store);
   },
+  /**
+   *
+   * @param {string} key
+   */
   async getCacheByKey(key) {
     if (process.env.NODE_ENV === "dev") return;
     const cache = await readCache();
-    const { createdAt = 0, value } = cache?.[key] ?? {};
-    if (createdAt + EXPIRATION_TIME < Date.now()) {
+    const { createdAt = 0, expTime = EXPIRATION_TIME, value } =
+      cache?.[key] ?? {};
+
+    if (createdAt + expTime < Date.now()) {
       this.clearCacheByKey(key);
       return;
     }
+
     return value;
   },
 };
