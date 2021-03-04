@@ -12,7 +12,7 @@ Pre-requisites
 Create an `.env` file at the root level of the directory, with the following fields:
 
 ```
-DISCORD_TOKEN=<Obtain in the Discord Dev Portal>
+DISCORD_TOKEN=<Obtainable in the Discord Developers Portal>
 BOT_ID=<Raspberry Piscord ID, used to prevent the bot to reply to itself>
 ```
 
