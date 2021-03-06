@@ -49,4 +49,4 @@ Get top 10 recent Hacker News stories.
 | -b   | -                  | Get HackerNews Best Stories.                        |
 | -n   | -                  | Get HackerNews NewStories.                          |
 | -i   | \<Numerical Index> | Starting point to fetch next 10 HackerNews Stories. |
-| -f   | \<Filter>          | Filter HackerNews Stories titles by provider text.  |
+| -f   | \<Filter>          | Filter HackerNews Stories by title with provided text.  |
