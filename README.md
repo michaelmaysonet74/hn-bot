@@ -2,6 +2,8 @@
 
 A HackerNews Discord.js bot that lives in a Raspberry Pi ❤️
 
+![Top Stories](/assets/top-stories.png)
+
 ## Getting Started
 
 Pre-requisites
