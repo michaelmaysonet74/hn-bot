@@ -35,7 +35,10 @@ const getStories = async (cursor = 0, limit = 10, category) => {
     storiesIds?.slice(index, index + limit)?.map((id) => getItem(id))
   );
 
-  return stories.map(({ data: { title, url } }) => ({ title, url }));
+  return stories.map((story) => {
+    const { title, url } = story?.data ?? {};
+    return { title, url };
+  });
 };
 
 module.exports = {
