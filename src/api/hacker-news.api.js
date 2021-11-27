@@ -1,6 +1,12 @@
 const axios = require("axios");
 const CacheStore = require("../cache");
 
+const Category = {
+  BEST: "beststories",
+  NEW: "newstories",
+  TOP: "topstories",
+};
+
 const baseURL = "https://hacker-news.firebaseio.com";
 const apiVersion = "v0";
 
@@ -42,7 +48,7 @@ const getStories = async (cursor = 0, limit = 10, category) => {
 };
 
 module.exports = {
-  getTopStories: (cursor, limit) => getStories(cursor, limit, "topstories"),
-  getBestStories: (cursor, limit) => getStories(cursor, limit, "beststories"),
-  getNewStories: (cursor, limit) => getStories(cursor, limit, "newstories"),
+  getTopStories: (cursor, limit) => getStories(cursor, limit, Category.TOP),
+  getBestStories: (cursor, limit) => getStories(cursor, limit, Category.BEST),
+  getNewStories: (cursor, limit) => getStories(cursor, limit, Category.NEW),
 };
