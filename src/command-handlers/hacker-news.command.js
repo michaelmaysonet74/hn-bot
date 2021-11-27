@@ -9,8 +9,8 @@ const getFilterArg = (flags) => getArgByFlag(flags, "f");
 const getCategory = (flags) =>
   flags.map(({ flag }) => flag).find((_) => _.match(/t|b|n/)) ?? "t";
 
-const getResolverByCategory = (category = "t") => {
-  return {
+const getResolverByCategory = (category = "t") =>
+  ({
     t: {
       icon: "🥇",
       title: "Top Stories",
@@ -26,8 +26,7 @@ const getResolverByCategory = (category = "t") => {
       title: "New Stories",
       resolver: HackerNewsAPI.getNewStories,
     },
-  }[category];
-};
+  }[category]);
 
 module.exports = {
   "!hn": async (msg, flags = []) => {
