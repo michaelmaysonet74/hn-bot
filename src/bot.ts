@@ -1,10 +1,10 @@
-const CommandHandlers = require("./command-handlers");
-const { extractCommandAndFlags, processFlags } = require("./helpers");
+import CommandHandlers from "./command-handlers";
+import { extractCommandAndFlags, processFlags } from "./helpers";
 
-const { config } = require("dotenv");
+import Discord from "discord.js";
+import { config } from "dotenv";
 config();
 
-const Discord = require("discord.js");
 const client = new Discord.Client();
 
 client.on("message", (msg) => {

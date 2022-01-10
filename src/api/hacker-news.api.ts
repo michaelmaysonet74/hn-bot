@@ -1,19 +1,19 @@
-const axios = require("axios");
-const CacheStore = require("../cache");
+import axios from "axios";
+import CacheStore from "../cache";
 
-const Category = {
-  BEST: "beststories",
-  NEW: "newstories",
-  TOP: "topstories",
-};
+enum Category {
+  BEST = "beststories",
+  NEW = "newstories",
+  TOP = "topstories",
+}
 
 const baseURL = "https://hacker-news.firebaseio.com";
 const apiVersion = "v0";
 
-const getItem = async (id) =>
+const getItem = async (id: string) =>
   axios.get(`${baseURL}/${apiVersion}/item/${id}.json?print=pretty`);
 
-const getStoriesIds = async (category) => {
+const getStoriesIds = async (category: Category) => {
   const cacheKey = `${category.toUpperCase()}_IDS`;
   const cacheStoriesIds = await CacheStore.getCacheByKey(cacheKey);
 
@@ -29,7 +29,7 @@ const getStoriesIds = async (category) => {
   return data;
 };
 
-const getStories = async (cursor = 0, limit = 10, category) => {
+const getStories = async (cursor = 0, limit = 10, category: Category) => {
   const storiesIds = await getStoriesIds(category);
 
   const index =
@@ -47,8 +47,11 @@ const getStories = async (cursor = 0, limit = 10, category) => {
   });
 };
 
-module.exports = {
-  getTopStories: (cursor, limit) => getStories(cursor, limit, Category.TOP),
-  getBestStories: (cursor, limit) => getStories(cursor, limit, Category.BEST),
-  getNewStories: (cursor, limit) => getStories(cursor, limit, Category.NEW),
+export default {
+  getTopStories: (cursor: number, limit?: number) =>
+    getStories(cursor, limit, Category.TOP),
+  getBestStories: (cursor: number, limit?: number) =>
+    getStories(cursor, limit, Category.BEST),
+  getNewStories: (cursor: number, limit?: number) =>
+    getStories(cursor, limit, Category.NEW),
 };

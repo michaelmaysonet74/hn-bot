@@ -1,6 +1,15 @@
-const HackerNewsAPI = require("../api/hacker-news.api");
-const { getArgByFlag, sanitizeNumber } = require("../helpers");
-const { MessageEmbed } = require("discord.js");
+import HackerNewsAPI from "../api/hacker-news.api";
+import { getArgByFlag, sanitizeNumber } from "../helpers";
+import { Message, MessageEmbed } from "discord.js";
+
+type Category = "t" | "b" | "n";
+
+interface ResolverByCategory {
+  icon: string;
+  title: string;
+  // TODO: Replace `any` with proper return type
+  resolver: (cursor: number, limit?: number) => Promise<any>;
+}
 
 const getIndexArg = (flags) => getArgByFlag(flags, "i") * 1;
 
@@ -9,7 +18,7 @@ const getFilterArg = (flags) => getArgByFlag(flags, "f");
 const getCategory = (flags) =>
   flags.map(({ flag }) => flag).find((_) => _.match(/t|b|n/)) ?? "t";
 
-const getResolverByCategory = (category = "t") =>
+const getResolverByCategory = (category: Category): ResolverByCategory =>
   ({
     t: {
       icon: "🥇",
@@ -28,8 +37,8 @@ const getResolverByCategory = (category = "t") =>
     },
   }[category]);
 
-module.exports = {
-  "!hn": async (msg, flags = []) => {
+export default {
+  "!hn": async (msg: Message, flags = []) => {
     const [indexArg, filterArg, category] = [
       sanitizeNumber(getIndexArg(flags)),
       getFilterArg(flags),

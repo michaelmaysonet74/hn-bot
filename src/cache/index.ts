@@ -1,4 +1,4 @@
-const fs = require("fs/promises");
+import fs from "fs/promises";
 
 const EXPIRATION_TIME = 60_000; // One Minute in Milliseconds
 const CACHE_PATH = `${__dirname}/../../cache-store.json`;
@@ -55,4 +55,4 @@ const CacheStore = {
   },
 };
 
-module.exports = CacheStore;
+export default CacheStore;

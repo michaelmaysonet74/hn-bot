@@ -1,6 +1,6 @@
-const { getArgByFlag } = require("../helpers");
-const fs = require("fs/promises");
-const { MessageEmbed } = require("discord.js");
+import { getArgByFlag } from "../helpers";
+import fs from "fs/promises";
+import { Message, MessageEmbed } from "discord.js";
 
 const getCommandArg = (flags) => getArgByFlag(flags, "c");
 
@@ -12,10 +12,11 @@ const getAvailableCommands = async () => {
   return JSON.parse(data);
 };
 
-module.exports = {
-  "!help": async (msg, flags = []) => {
+export default {
+  "!help": async (msg: Message, flags: string[] = []) => {
     const availableCommands = await getAvailableCommands();
     const commandArg = getCommandArg(flags);
+
     const fields = !commandArg
       ? availableCommands.map(({ Command, Description }) => ({
           name: Command,
