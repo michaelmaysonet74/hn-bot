@@ -1,19 +1,47 @@
+/* -------------------------------------------------------------------------- */
+/*                                   IMPORTS                                  */
+/* -------------------------------------------------------------------------- */
+/* ------------------------------- THIRD PARTY ------------------------------ */
 import axios from "axios";
+
+/* --------------------------------- CUSTOM --------------------------------- */
 import CacheStore from "../cache";
 
+/* -------------------------------------------------------------------------- */
+/*                                    TYPES                                   */
+/* -------------------------------------------------------------------------- */
 enum Category {
   BEST = "beststories",
   NEW = "newstories",
   TOP = "topstories",
 }
 
+interface Item {
+  data: {
+    id: string;
+    title?: string;
+    url?: string;
+  };
+}
+
+export interface Story {
+  title?: string;
+  url?: string;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  CONSTANTS                                 */
+/* -------------------------------------------------------------------------- */
 const baseURL = "https://hacker-news.firebaseio.com";
 const apiVersion = "v0";
 
-const getItem = async (id: string) =>
+/* -------------------------------------------------------------------------- */
+/*                                  FUNCTIONS                                 */
+/* -------------------------------------------------------------------------- */
+const getItem = async (id: string): Promise<Item> =>
   axios.get(`${baseURL}/${apiVersion}/item/${id}.json?print=pretty`);
 
-const getStoriesIds = async (category: Category) => {
+const getStoriesIds = async (category: Category): Promise<string[]> => {
   const cacheKey = `${category.toUpperCase()}_IDS`;
   const cacheStoriesIds = await CacheStore.getCacheByKey(cacheKey);
 
@@ -43,10 +71,13 @@ const getStories = async (cursor = 0, limit = 10, category: Category) => {
 
   return stories.map((story) => {
     const { title, url } = story?.data ?? {};
-    return { title, url };
+    return { title, url } as Story;
   });
 };
 
+/* -------------------------------------------------------------------------- */
+/*                                     API                                    */
+/* -------------------------------------------------------------------------- */
 export default {
   getTopStories: (cursor: number, limit?: number) =>
     getStories(cursor, limit, Category.TOP),

@@ -1,8 +1,17 @@
-import { getArgByFlag } from "../helpers";
+/* -------------------------------------------------------------------------- */
+/*                                   IMPORTS                                  */
+/* -------------------------------------------------------------------------- */
+/* ------------------------------- THIRD PARTY ------------------------------ */
 import fs from "fs/promises";
 import { Message, MessageEmbed } from "discord.js";
 
-const getCommandArg = (flags) => getArgByFlag(flags, "c");
+/* --------------------------------- CUSTOM --------------------------------- */
+import { Flag, getArgByFlag } from "../helpers";
+
+/* -------------------------------------------------------------------------- */
+/*                              HELPER FUNCTIONS                              */
+/* -------------------------------------------------------------------------- */
+const getCommandArg = (flags: Flag[]) => getArgByFlag(flags, "c");
 
 const getAvailableCommands = async () => {
   const data = await fs.readFile(
@@ -12,8 +21,11 @@ const getAvailableCommands = async () => {
   return JSON.parse(data);
 };
 
+/* -------------------------------------------------------------------------- */
+/*                               COMMAND HANDLER                              */
+/* -------------------------------------------------------------------------- */
 export default {
-  "!help": async (msg: Message, flags: string[] = []) => {
+  "!help": async (msg: Message, flags: Flag[] = []) => {
     const availableCommands = await getAvailableCommands();
     const commandArg = getCommandArg(flags);
 

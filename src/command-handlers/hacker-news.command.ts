@@ -1,22 +1,33 @@
-import HackerNewsAPI from "../api/hacker-news.api";
-import { getArgByFlag, sanitizeNumber } from "../helpers";
+/* -------------------------------------------------------------------------- */
+/*                                   IMPORTS                                  */
+/* -------------------------------------------------------------------------- */
+/* ------------------------------- THIRD PARTY ------------------------------ */
 import { Message, MessageEmbed } from "discord.js";
 
+/* --------------------------------- CUSTOM --------------------------------- */
+import HackerNewsAPI, { Story } from "../api/hacker-news.api";
+import { Flag, getArgByFlag, sanitizeNumber } from "../helpers";
+
+/* -------------------------------------------------------------------------- */
+/*                                    TYPES                                   */
+/* -------------------------------------------------------------------------- */
 type Category = "t" | "b" | "n";
 
 interface ResolverByCategory {
   icon: string;
   title: string;
-  // TODO: Replace `any` with proper return type
-  resolver: (cursor: number, limit?: number) => Promise<any>;
+  resolver: (cursor: number, limit?: number) => Promise<Story[]>;
 }
 
-const getIndexArg = (flags) => getArgByFlag(flags, "i") * 1;
+/* -------------------------------------------------------------------------- */
+/*                              HELPER FUNCTIONS                              */
+/* -------------------------------------------------------------------------- */
+const getIndexArg = (flags: Flag[]) => getArgByFlag(flags, "i") ?? 0 * 1;
 
-const getFilterArg = (flags) => getArgByFlag(flags, "f");
+const getFilterArg = (flags: Flag[]) => getArgByFlag(flags, "f");
 
-const getCategory = (flags) =>
-  flags.map(({ flag }) => flag).find((_) => _.match(/t|b|n/)) ?? "t";
+const getCategory = (flags: Flag[]) =>
+  flags.map(({ flag }) => flag).find((_: string) => _.match(/t|b|n/)) ?? "t";
 
 const getResolverByCategory = (category: Category): ResolverByCategory =>
   ({
@@ -37,6 +48,9 @@ const getResolverByCategory = (category: Category): ResolverByCategory =>
     },
   }[category]);
 
+/* -------------------------------------------------------------------------- */
+/*                               COMMAND HANDLER                              */
+/* -------------------------------------------------------------------------- */
 export default {
   "!hn": async (msg: Message, flags = []) => {
     const [indexArg, filterArg, category] = [
@@ -45,7 +59,9 @@ export default {
       getCategory(flags),
     ];
 
-    const { icon, title, resolver } = getResolverByCategory(category);
+    const { icon, title, resolver } = getResolverByCategory(
+      category as Category
+    );
     const stories = await resolver(indexArg);
 
     const filteredStories = filterArg
