@@ -15,7 +15,7 @@ import { extractCommandAndFlags, processFlags } from "./helpers";
 /* -------------------------------------------------------------------------- */
 const client = new Discord.Client();
 
-client.on("message", (msg: Message) => {
+client.on("message", async (msg: Message) => {
   if (!process.env.BOT_ID || msg.author.id === process.env.BOT_ID) return;
   try {
     const { content } = msg;
@@ -32,7 +32,7 @@ client.on("message", (msg: Message) => {
       );
     }
 
-    CommandHandlers[command.toLowerCase()](msg, processedFlags);
+    await CommandHandlers[command.toLowerCase()](msg, processedFlags);
   } catch (err) {
     console.error(err);
     msg.reply("Oops! Something went wrong 💔");
