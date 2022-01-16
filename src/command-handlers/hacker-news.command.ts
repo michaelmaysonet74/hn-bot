@@ -55,7 +55,6 @@ const getResolverByCategory = (
 /* -------------------------------------------------------------------------- */
 export default {
   "!hn": async (msg: Message, flags = []) => {
-    // try {
     const [indexArg, filterArg, category] = [
       sanitizeNumber(getIndexArg(flags)),
       getFilterArg(flags),
@@ -98,9 +97,5 @@ export default {
         `Bummer! Couldn't find any stories with a title that matches "${filterArg}". 😭`
       );
     }
-    // } catch (err) {
-    //   console.error(err);
-    //   throw err;
-    // }
   },
 };
