@@ -4,10 +4,10 @@
   "description": "",
   "main": "bot.js",
   "scripts": {
-    "precompile": "mkdir -p dist/src",
+    "precompile": "mkdir -p dist/src; touch dist/cache-store.json; cp ./available-commands.json dist/",
     "compile": "tsc",
     "compile:watch": "tsc -w",
-    "start": "rm cache-store.json; touch cache-store.json; concurrently \"npm run precompile\" \"npm run compile\" \"node ./dist/src/bot.js\"",
+    "start": "concurrently \"npm run precompile\" \"npm run compile\" \"node ./dist/src/bot.js\"",
     "dev": "export NODE_ENV=dev; concurrently \"npm run precompile\" \"npm run compile:watch\" \"nodemon --inspect --enable-source-maps dist/src/bot.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

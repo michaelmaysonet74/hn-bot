@@ -8,7 +8,7 @@ interface CommandAndFlags {
 
 export interface Flag {
   flag: string;
-  arg: string;
+  arg?: string;
 }
 
 /* -------------------------------------------------------------------------- */

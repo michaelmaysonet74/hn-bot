@@ -22,14 +22,16 @@ interface ResolverByCategory {
 /* -------------------------------------------------------------------------- */
 /*                              HELPER FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
-const getIndexArg = (flags: Flag[]) => getArgByFlag(flags, "i") ?? 0 * 1;
+const getIndexArg = (flags: Flag[]) => Number(getArgByFlag(flags, "i") ?? 0);
 
 const getFilterArg = (flags: Flag[]) => getArgByFlag(flags, "f");
 
 const getCategory = (flags: Flag[]) =>
   flags.map(({ flag }) => flag).find((_: string) => _.match(/t|b|n/)) ?? "t";
 
-const getResolverByCategory = (category: Category): ResolverByCategory =>
+const getResolverByCategory = (
+  category: Category
+): ResolverByCategory | undefined =>
   ({
     t: {
       icon: "🥇",
@@ -59,9 +61,13 @@ export default {
       getCategory(flags),
     ];
 
-    const { icon, title, resolver } = getResolverByCategory(
-      category as Category
-    );
+    const { icon, title, resolver } =
+      getResolverByCategory(category as Category) ?? {};
+
+    if (!resolver) {
+      throw new Error("Category not found");
+    }
+
     const stories = await resolver(indexArg);
 
     const filteredStories = filterArg
