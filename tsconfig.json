@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "module": "commonjs",
+        "lib": ["DOM", "ES2019"],
+        "sourceMap": true,
+        "outDir": "dist/src",
+        "removeComments": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": false
+    },
+    "compileOnSave": true,
+    "include": [
+        "src/**/*"
+    ]
+}
