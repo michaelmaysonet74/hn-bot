@@ -79,10 +79,27 @@ const getStories = async (cursor = 0, limit = 10, category: Category) => {
 /*                                     API                                    */
 /* -------------------------------------------------------------------------- */
 export default {
+  /**
+   * @param cursor Index that determines from which point on to start creating the list of stories
+   * @param limit Determines the size of the list of stories to be returned
+   * @returns List of Top HackerNews Stories
+   */
   getTopStories: (cursor: number, limit?: number) =>
     getStories(cursor, limit, Category.TOP),
+
+  /**
+   * @param cursor Index that determines from which point on to start creating the list of stories
+   * @param limit Determines the size of the list of stories to be returned
+   * @returns List of Best HackerNews Stories
+   */
   getBestStories: (cursor: number, limit?: number) =>
     getStories(cursor, limit, Category.BEST),
+
+  /**
+   * @param cursor Index that determines from which point on to start creating the list of stories
+   * @param limit Determines the size of the list of stories to be returned
+   * @returns List of New HackerNews Stories
+   */
   getNewStories: (cursor: number, limit?: number) =>
     getStories(cursor, limit, Category.NEW),
 };
