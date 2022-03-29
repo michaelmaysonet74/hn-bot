@@ -37,12 +37,14 @@ const writeCache = (data: Store) =>
 /* -------------------------------------------------------------------------- */
 /*                                     API                                    */
 /* -------------------------------------------------------------------------- */
-const CacheStore = {
-  store: {} as Store,
+class CacheStore {
+  private store = {} as Store;
+
   clearCacheByKey(key: string) {
     this.store[key] = undefined;
     writeCache(this.store);
-  },
+  }
+
   setCacheByKey(key: string, data: string[], expTime = EXPIRATION_TIME) {
     if (process.env.NODE_ENV === "dev") return;
 
@@ -53,7 +55,8 @@ const CacheStore = {
     };
 
     writeCache(this.store);
-  },
+  }
+
   async getCacheByKey(key: string) {
     if (process.env.NODE_ENV === "dev") return [];
 
@@ -67,7 +70,7 @@ const CacheStore = {
     }
 
     return value ?? [];
-  },
-};
+  }
+}
 
-export default CacheStore;
+export default new CacheStore();
