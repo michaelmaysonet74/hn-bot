@@ -73,4 +73,4 @@ class CacheStore {
   }
 }
 
-export default new CacheStore();
+export default Object.freeze(new CacheStore());

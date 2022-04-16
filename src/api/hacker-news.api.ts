@@ -78,7 +78,7 @@ const getStories = async (cursor = 0, limit = 10, category: Category) => {
 /* -------------------------------------------------------------------------- */
 /*                                     API                                    */
 /* -------------------------------------------------------------------------- */
-export default {
+export default Object.freeze({
   /**
    * @param cursor Index that determines from which point on to start creating the list of stories
    * @param limit Determines the size of the list of stories to be returned
@@ -102,4 +102,4 @@ export default {
    */
   getNewStories: (cursor: number, limit?: number) =>
     getStories(cursor, limit, Category.NEW),
-};
+});
