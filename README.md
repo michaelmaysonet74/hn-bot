@@ -21,7 +21,7 @@ BOT_ID=<Raspberry Piscord ID, used to prevent the bot to reply to itself>
 ### Bring the `Raspberry Piscord` Online ⚡️
 
 ```
-$ npm i
+$ npm ci
 $ npm start
 ```
 
