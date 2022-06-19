@@ -22,7 +22,7 @@
       },
       {
         "Usage": "-n",
-        "Description": "Get HackerNews New Stories."
+        "Description": "Get HackerNews Most Recent Stories."
       },
       {
         "Usage": "-i <Numerical Index>",
