@@ -40,7 +40,7 @@ const getResolverByCategory = (
   ({
     t: {
       icon: "🥇",
-      title: "🥇 Top Stories",
+      title: "Top Stories",
       resolver: HackerNewsAPI.getTopStories,
     },
     b: {
