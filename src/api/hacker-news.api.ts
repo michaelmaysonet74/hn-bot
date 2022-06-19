@@ -6,6 +6,7 @@ import axios from "axios";
 
 /* --------------------------------- CUSTOM --------------------------------- */
 import CacheStore from "../cache";
+import { STORY_LIMIT_SIZE } from "../helpers";
 
 /* -------------------------------------------------------------------------- */
 /*                                    TYPES                                   */
@@ -26,13 +27,15 @@ interface Item {
 
 export interface Story {
   title?: string;
-  url?: string;
+  storyUrl?: string;
+  threadUrl?: string;
 }
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
 /* -------------------------------------------------------------------------- */
 const baseURL = "https://hacker-news.firebaseio.com";
+const hackerNewsUrl = "https://news.ycombinator.com";
 const apiVersion = "v0";
 
 /* -------------------------------------------------------------------------- */
@@ -57,7 +60,11 @@ const getStoriesIds = async (category: Category): Promise<string[]> => {
   return data;
 };
 
-const getStories = async (cursor = 0, limit = 10, category: Category) => {
+const getStories = async (
+  cursor = 0,
+  limit = STORY_LIMIT_SIZE,
+  category: Category
+) => {
   const storiesIds = await getStoriesIds(category);
 
   const index =
@@ -70,8 +77,12 @@ const getStories = async (cursor = 0, limit = 10, category: Category) => {
   );
 
   return stories.map((story) => {
-    const { title, url } = story?.data ?? {};
-    return { title, url } as Story;
+    const { id, title, url } = story?.data ?? {};
+    return {
+      title,
+      storyUrl: url,
+      threadUrl: id ? `${hackerNewsUrl}/item?id=${id}` : undefined,
+    } as Story;
   });
 };
 
