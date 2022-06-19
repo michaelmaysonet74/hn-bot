@@ -58,10 +58,10 @@ const getResolverByCategory = (
 const getFilteredStories = (stories: Story[], filterArg?: string) =>
   filterArg
     ? stories.filter(
-        ({ title, storyUrl }) =>
-          title && storyUrl && title.match(new RegExp(filterArg, "gi"))
+        ({ title, url }) =>
+          title && url && title.match(new RegExp(filterArg, "gi"))
       )
-    : stories.filter(({ title, storyUrl }) => title && storyUrl);
+    : stories.filter(({ title, url }) => title && url);
 
 /* -------------------------------------------------------------------------- */
 /*                               COMMAND HANDLER                              */
@@ -92,9 +92,12 @@ export default {
       return;
     }
 
-    const fields = filteredStories.map(({ title, storyUrl, threadUrl }) => ({
+    const fields = filteredStories.map(({ title, url, comments }) => ({
       name: title,
-      value: [`Story: ${storyUrl}`, `Comments: ${threadUrl}`],
+      value: [
+        `Story: ${url}`,
+        ...[comments.url && `Comments: ${comments.url}`],
+      ],
     }));
 
     const footer = {

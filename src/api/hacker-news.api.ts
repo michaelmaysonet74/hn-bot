@@ -27,8 +27,12 @@ interface Item {
 
 export interface Story {
   title?: string;
-  storyUrl?: string;
-  threadUrl?: string;
+  url?: string;
+  comments: Comments;
+}
+
+export interface Comments {
+  url?: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -80,8 +84,10 @@ const getStories = async (
     const { id, title, url } = story?.data ?? {};
     return {
       title,
-      storyUrl: url,
-      threadUrl: id ? `${hackerNewsUrl}/item?id=${id}` : undefined,
+      url,
+      comments: {
+        url: title && url ? `${hackerNewsUrl}/item?id=${id}` : undefined,
+      },
     } as Story;
   });
 };
