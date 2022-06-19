@@ -6,7 +6,12 @@ import { Message, MessageEmbed } from "discord.js";
 
 /* --------------------------------- CUSTOM --------------------------------- */
 import HackerNewsAPI, { Story } from "../api/hacker-news.api";
-import { Flag, getArgByFlag, sanitizeNumber } from "../helpers";
+import {
+  Flag,
+  STORY_LIMIT_SIZE,
+  getArgByFlag,
+  sanitizeNumber,
+} from "../helpers";
 
 /* -------------------------------------------------------------------------- */
 /*                                    TYPES                                   */
@@ -50,6 +55,14 @@ const getResolverByCategory = (
     },
   }[category]);
 
+const getFilteredStories = (stories: Story[], filterArg?: string) =>
+  filterArg
+    ? stories.filter(
+        ({ title, url }) =>
+          title && url && title.match(new RegExp(filterArg, "gi"))
+      )
+    : stories.filter(({ title, url }) => title && url);
+
 /* -------------------------------------------------------------------------- */
 /*                               COMMAND HANDLER                              */
 /* -------------------------------------------------------------------------- */
@@ -70,32 +83,35 @@ export default {
 
     const stories = await resolver(indexArg);
 
-    const filteredStories = filterArg
-      ? stories.filter(
-          ({ title, url }) =>
-            title && url && title.match(new RegExp(filterArg, "gi"))
-        )
-      : stories.filter(({ title, url }) => title && url);
+    const filteredStories = getFilteredStories(stories, filterArg);
 
-    if (filteredStories.length) {
-      const fields = filteredStories.map(({ title, url }) => ({
-        name: title,
-        value: url,
-      }));
-
-      msg.reply(
-        new MessageEmbed({
-          footer: {
-            text: `Next 10 ${title}: !hn -${category} -i ${indexArg + 10}`,
-          },
-          title: `${icon} ${title}`,
-          fields,
-        })
-      );
-    } else {
+    if (filteredStories.length < 1) {
       msg.reply(
         `Bummer! Couldn't find any stories with a title that matches "${filterArg}". 😭`
       );
+      return;
     }
+
+    const fields = filteredStories.map(({ title, url, comments }) => ({
+      name: title,
+      value: [
+        `Story: ${url}`,
+        ...[comments.url && `Comments: ${comments.url}`],
+      ],
+    }));
+
+    const footer = {
+      text: `Next ${STORY_LIMIT_SIZE} ${title}: !hn -${category} -i ${
+        indexArg + STORY_LIMIT_SIZE
+      }`,
+    };
+
+    const embed = new MessageEmbed({
+      title: `${icon} ${title}`,
+      fields,
+      footer,
+    });
+
+    msg.reply(embed);
   },
 };
