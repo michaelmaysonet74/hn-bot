@@ -28,10 +28,10 @@ interface Item {
 export interface Story {
   title?: string;
   url?: string;
-  comments: Comments;
+  comments: Thread;
 }
 
-export interface Comments {
+export interface Thread {
   url?: string;
 }
 
