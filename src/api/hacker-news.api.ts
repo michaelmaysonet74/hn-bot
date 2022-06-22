@@ -6,7 +6,7 @@ import axios from "axios";
 
 /* --------------------------------- CUSTOM --------------------------------- */
 import CacheStore from "../cache";
-import { STORY_LIMIT_SIZE } from "../helpers";
+import { DEFAULT_STORY_BATCH_SIZE } from "../helpers";
 
 /* -------------------------------------------------------------------------- */
 /*                                    TYPES                                   */
@@ -66,7 +66,7 @@ const getStoriesIds = async (category: Category): Promise<string[]> => {
 
 const getStories = async (
   cursor = 0,
-  limit = STORY_LIMIT_SIZE,
+  limit = DEFAULT_STORY_BATCH_SIZE,
   category: Category
 ) => {
   const storiesIds = await getStoriesIds(category);

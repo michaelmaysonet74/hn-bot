@@ -8,7 +8,7 @@ import { Message, MessageEmbed } from "discord.js";
 import HackerNewsAPI, { Story } from "../api/hacker-news.api";
 import {
   Flag,
-  STORY_LIMIT_SIZE,
+  DEFAULT_STORY_BATCH_SIZE,
   getArgByFlag,
   sanitizeNumber,
 } from "../helpers";
@@ -95,14 +95,14 @@ export default {
     const fields = filteredStories.map(({ title, url, comments }) => ({
       name: title,
       value: [
-        `Story: ${url}`,
-        ...[comments.url && `Comments: ${comments.url}`],
-      ],
+        `[Story](${url})`,
+        ...[comments.url && `[Comments](${comments.url})`],
+      ].join(" | "),
     }));
 
     const footer = {
-      text: `Next ${STORY_LIMIT_SIZE} ${title}: !hn -${category} -i ${
-        indexArg + STORY_LIMIT_SIZE
+      text: `Next ${DEFAULT_STORY_BATCH_SIZE} ${title}: !hn -${category} -i ${
+        indexArg + DEFAULT_STORY_BATCH_SIZE
       }`,
     };
 

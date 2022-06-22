@@ -43,12 +43,12 @@ Shows available commands.
 
 ### !hn
 
-Get top 5 recent Hacker News stories.
+Get top 10 Hacker News stories of the day.
 
 | Flag | Argument           | Description                                            |
 | ---- | ------------------ | ------------------------------------------------------ |
 | -t   | -                  | Get HackerNews Top Stories (Default).                  |
 | -b   | -                  | Get HackerNews Best Stories.                           |
 | -n   | -                  | Get HackerNews Most Recent Stories.                    |
-| -i   | \<Numerical Index> | Starting point to fetch next 5 HackerNews Stories.     |
+| -i   | \<Numerical Index> | Starting point to fetch next 10 HackerNews Stories.    |
 | -f   | \<Filter>          | Filter HackerNews Stories by title with provided text. |

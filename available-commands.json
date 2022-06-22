@@ -26,13 +26,13 @@
       },
       {
         "Usage": "-i <Numerical Index>",
-        "Description": "Starting point to fetch next 5 HackerNews Stories."
+        "Description": "Starting point to fetch next 10 HackerNews Stories."
       },
       {
         "Usage": "-f <Filter>",
         "Description": "Filter HackerNews Stories titles by provider text."
       }
     ],
-    "Description": "Get top 5 recent HackerNews stories."
+    "Description": "Get top 10 HackerNews stories of the day."
   }
 ]
