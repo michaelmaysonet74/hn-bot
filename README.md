@@ -2,8 +2,6 @@
 
 A HackerNews Discord Bot
 
-![Top Stories](/assets/top-stories.png)
-
 ## Getting Started
 
 Pre-requisites
