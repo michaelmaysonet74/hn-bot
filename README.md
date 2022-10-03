@@ -1,6 +1,6 @@
-# Raspberry Piscord 🤖
+# HN Bot 🤖
 
-A HackerNews Discord.js bot that lives in a Raspberry Pi ❤️
+A HackerNews Discord Bot
 
 ![Top Stories](/assets/top-stories.png)
 
@@ -15,10 +15,10 @@ Create an `.env` file at the root level of the directory, with the following fie
 
 ```
 DISCORD_TOKEN=<Obtainable in the Discord Developers Portal>
-BOT_ID=<Raspberry Piscord ID, used to prevent the bot to reply to itself>
+BOT_ID=<HN Bot ID, used to prevent the bot to reply to itself>
 ```
 
-### Bring the `Raspberry Piscord` Online ⚡️
+### Bring the `HN Bot` Online ⚡️
 
 ```
 $ npm ci
