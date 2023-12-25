@@ -15,6 +15,7 @@ export interface Flag {
 /*                                  CONSTANTS                                 */
 /* -------------------------------------------------------------------------- */
 export const DEFAULT_STORY_BATCH_SIZE = 10;
+export const STORY_TITLE_MAX_LENGTH = 76;
 
 /* -------------------------------------------------------------------------- */
 /*                              HELPER FUNCTIONS                              */

@@ -5,12 +5,13 @@
 import { Message, MessageEmbed } from "discord.js";
 
 /* --------------------------------- CUSTOM --------------------------------- */
-import HackerNewsAPI, { Story } from "../api/hacker-news.api";
+import HackerNewsAPI, { Story, Thread } from "../api/hacker-news.api";
 import {
   Flag,
   DEFAULT_STORY_BATCH_SIZE,
   getArgByFlag,
   sanitizeNumber,
+  STORY_TITLE_MAX_LENGTH,
 } from "../helpers";
 
 /* -------------------------------------------------------------------------- */
@@ -22,6 +23,12 @@ interface ResolverByCategory {
   icon: string;
   title: string;
   resolver: (cursor: number, limit?: number) => Promise<Story[]>;
+}
+
+interface FilteredStory {
+  title: string;
+  url: string;
+  comments: Thread;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -55,13 +62,21 @@ const getResolverByCategory = (
     },
   }[category]);
 
-const getFilteredStories = (stories: Story[], filterArg?: string) =>
-  filterArg
+const getFilteredStories = (
+  stories: Story[],
+  filterArg?: string
+): FilteredStory[] =>
+  (filterArg
     ? stories.filter(
         ({ title, url }) =>
           title && url && title.match(new RegExp(filterArg, "gi"))
       )
-    : stories.filter(({ title, url }) => title && url);
+    : stories.filter(({ title, url }) => title && url)) as FilteredStory[];
+
+const truncateStoryTitle = (title: string): string =>
+  title.length > STORY_TITLE_MAX_LENGTH
+    ? `${title?.slice(0, STORY_TITLE_MAX_LENGTH - 3)}...`
+    : title;
 
 /* -------------------------------------------------------------------------- */
 /*                               COMMAND HANDLER                              */
@@ -87,13 +102,15 @@ export default {
 
     if (filteredStories.length < 1) {
       msg.reply(
-        `Bummer! Couldn't find any stories with a title that matches "${filterArg}". 😭`
+        filterArg
+          ? `Bummer! Couldn't find any stories with a title that matches "${filterArg}". 😭`
+          : `Bummer! Couldn't find any stories. 😭`
       );
       return;
     }
 
     const fields = filteredStories.map(({ title, url, comments }) => ({
-      name: title,
+      name: truncateStoryTitle(title),
       value: [
         `[Story](${url})`,
         ...[comments.url && `[Comments](${comments.url})`],
